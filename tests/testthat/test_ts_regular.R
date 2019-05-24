@@ -51,4 +51,20 @@ test_that("fill argument works", {
 })
 
 
+test_that("regular_core works correctly when is_regular_one_basic is TRUE", {
+  library(data.table)
+
+  DT <- data.table(date = as.Date(c("2019-01-01", "2019-02-01")), values = 1:2)
+  expect_true(is_regular_one_basic(DT$date))
+
+  expect_s3_class(ts_ts(DT), "ts")
+
+  DT <- data.table(date = as.Date(c("2019-01-01", "2019-02-01", "2019-03-01")),
+                   values = 1:3)
+  expect_false(is_regular_one_basic(DT$date))
+
+  expect_s3_class(ts_ts(DT), "ts")
+
+})
+
 

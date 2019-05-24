@@ -58,7 +58,13 @@ regular_core <- function(x) {
     if (is.null(reg.time)) {
       stop("series has no regular pattern", call. = FALSE)
     }
-    merge_time_date(data.table(time = reg.time), x, by.x = "time", by.y = ctime)
+    z <- merge_time_date(data.table(time = reg.time),
+                         x,
+                         by.x = "time",
+                         by.y = ctime)
+
+    # resulting time column name should be ctime
+    setnames(z, "time", ctime)
   }
 
   if (length(cid) == 0) {
@@ -69,9 +75,6 @@ regular_core <- function(x) {
   }
 
   setattr(z, "cname", cname)
-
-  # resulting time column name should be ctime
-  setnames(z, "time", ctime)
 
   # preserve original col order
   setcolorder(z, names(x))
