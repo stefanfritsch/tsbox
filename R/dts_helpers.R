@@ -68,7 +68,7 @@ number_of_series <- function(x) {
 }
 
 # Combine several id columns in one
-combine_id_cols <- function(x, sep = "%%%") {
+combine_id_cols <- function(x, sep = "_%%%_") {
   stopifnot(inherits(x, "dts"))
   if (NCOL(x) <= 3) return(x)
   cname <- dts_cname(x)
